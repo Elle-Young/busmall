@@ -1,6 +1,10 @@
 'use strict';
 
-function ImageAnalytics(name, filepath, displayed, clicked) {
+var timesClicked = 0;
+var clicksAllowed = 10;
+
+
+function ImageAnalytics(name, filepath) {
   this.name = name;
   this.filepath = filepath;
   this.displayed = 0;
@@ -34,13 +38,13 @@ new ImageAnalytics('Stylish', './images/wine-glass.jpg', 0, 0);
 console.log(ImageAnalytics.imageDatabase);
 
 var left = document.getElementById('img1');
-img1.addEventListener('click', getRandomImage);
+left.removeEventListener('click', getRandomImage);
 
 var center = document.getElementById('img2');
-img2.addEventListener('click', getRandomImage);
+center.addEventListener('click', getRandomImage);
 
 var right = document.getElementById('img3');
-img3.addEventListener('click', getRandomImage);
+right.addEventListener('click', getRandomImage);
 
 function getRandomNumber() {
   return Math.floor(Math.random()*ImageAnalytics.imageDatabase.length);
@@ -48,15 +52,24 @@ function getRandomNumber() {
 
 function getRandomImage() {
   var randomArray = [];
+  timesClicked ++;
+  console.log(timesClicked, 'I was clicked');
 
   for (var i = 0; i < 3; i++) {
     randomArray.push(ImageAnalytics.imageDatabase[getRandomNumber()].filepath);
+    
   }
-
+  console.log(randomArray);
   console.log(getRandomNumber());
   left.src = randomArray[0];
   center.src = randomArray[1];
   right.src = randomArray[2];
+  if(timesClicked === clicksAllowed){
+    left.removeEventListener('click', getRandomImage);
+    center.removeEventListener('click', getRandomImage);
+    right.removeEventListener('click', getRandomImage);
+
+  }
 }
 
 
@@ -70,13 +83,76 @@ function getRandomImage() {
 //   return ?
 // }
 
-//keep track of, and then end the click game at 25 selections
-while ('click' < 25) {
- for (var i = 0, i <= 25; i++);
-  push(ImageAnalytics.imageDatabase);
-  if('click' > 25)
-    return ("results")
-}
+// //keep track of, and then end the click game at 25 selections
+// while (timesClicked < clicksAllowed) {
+//   for (var i = 0; i < clicksAllowed; i++){
+    // push(ImageAnalytics.imageDatabase[i]);
+    // if(timesClicked === clicksAllowed){
+    //   left.removeEventListener('click', getRandomImage);
+    //   center.removeEventListener('click', getRandomImage);
+    //   right.removeEventListener('click', getRandomImage);
+
+    // }
+//   }
+// }
 getRandomImage();
+
+
+function doTheChartThing() {
+  var ctx = document.getElementById('doTheChartThing').getContest('2d');
+
+  var labels = []; // ["John", "Cat", "Zach", "Allie"]
+  var voteData = []; // [17, 13, 44, 16]
+  var colors = []; // ['#880088', '#880088', ... ]
+
+  for (var i = 0; i < allTheData.length; i++) {
+    allTheData[i].pct = Math.round((allTheData[i].clicks / allTheData[i].views) * 100);
+  }
+
+  allTheData.sort(function (a, b) {
+    return b.pct - a.pct;
+  });
+
+  for (var i = 0; i < allTheData.length; i++) {
+    labels.push(allTheData[i].name);
+    data.push(allTheData[i].pct);
+    var randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+    colors.push(randomColor);
+  }
+
+
+  new Chart(ctx, {
+    type: 'horizontalBar',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Popularity based on % of clicks',
+          data: voteData,
+          backgroundColor: colors
+        }
+      ]
+    },
+    options: {
+      responsive: false,
+      maintainAspectRatio: true,
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true
+            }
+          }
+        ]
+      }
+    }
+  });
+
+}
+
+doTheChartThing();
+
+
+
 
 

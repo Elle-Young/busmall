@@ -1,0 +1,17 @@
+li {
+  width: 30%;
+  border: 2px black solid; 
+  margin: 2px; 
+  padding: 2px; 
+  height: 30%; 
+  float: left; 
+} 
+
+img {
+  height: auto;
+  width: 150px;
+  border: 5px dotted black; 
+  margin: 50px;
+  padding: 50px; 
+}
+

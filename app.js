@@ -57,7 +57,7 @@ function getRandomImage() {
 
   for (var i = 0; i < 3; i++) {
     randomArray.push(ImageAnalytics.imageDatabase[getRandomNumber()].filepath);
-    
+
   }
   console.log(randomArray);
   console.log(getRandomNumber());
@@ -72,30 +72,12 @@ function getRandomImage() {
   }
 }
 
-
-
-//Stop the randomImage generator from duplicating two of the sames images in one set
-// function nonDuplication(){
-// var emptyArray = [];
-// while (var i = 0; i < 6; i++);
-//   push(ImageAnalytics.imageDatabase);
-//   if (i > 6);
-//   return ?
-// }
-
-// //keep track of, and then end the click game at 25 selections
-// while (timesClicked < clicksAllowed) {
-//   for (var i = 0; i < clicksAllowed; i++){
-    // push(ImageAnalytics.imageDatabase[i]);
-    // if(timesClicked === clicksAllowed){
-    //   left.removeEventListener('click', getRandomImage);
-    //   center.removeEventListener('click', getRandomImage);
-    //   right.removeEventListener('click', getRandomImage);
-
-    // }
-//   }
-// }
 getRandomImage();
+
+
+/////////////////////////////////////////
+
+
 
 
 function doTheChartThing() {
@@ -113,46 +95,38 @@ function doTheChartThing() {
     return b.pct - a.pct;
   });
 
-  for (var i = 0; i < allTheData.length; i++) {
-    labels.push(allTheData[i].name);
-    data.push(allTheData[i].pct);
-    var randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-    colors.push(randomColor);
-  }
-
-
-  new Chart(ctx, {
-    type: 'horizontalBar',
-    data: {
-      labels: labels,
-      datasets: [
-        {
-          label: 'Popularity based on % of clicks',
-          data: voteData,
-          backgroundColor: colors
-        }
-      ]
-    },
-    options: {
-      responsive: false,
-      maintainAspectRatio: true,
-      scales: {
-        yAxes: [
-          {
-            ticks: {
-              beginAtZero: true
-            }
-          }
-        ]
-      }
-    }
-  });
-
+for (var i = 0; i < allTheData.length; i++) {
+  labels.push(allTheData[i].name);
+  data.push(allTheData[i].pct);
+  var randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+  colors.push(randomColor);
 }
 
+
+new Chart(ctx, {
+  type: 'horizontalBar',
+  data: {
+    labels: labels,
+    datasets: [
+      {
+        label: 'Popularity based on % of clicks',
+        data: voteData,
+        backgroundColor: colors
+      }
+    ]
+  },
+  options: {
+    responsive: false,
+    maintainAspectRatio: true,
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true
+          }
+        }
+      ]
+    }
+  }
+});
 doTheChartThing();
-
-
-
-
-

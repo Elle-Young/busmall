@@ -1,8 +1,8 @@
 'use strict';
 
-var timesClicked = 0;
 var clicksAllowed = 10;
-
+var timesClicked = [];
+var timesDisplayed = [];
 
 function ImageAnalytics(name, filepath) {
   this.name = name;
@@ -68,65 +68,29 @@ function getRandomImage() {
     left.removeEventListener('click', getRandomImage);
     center.removeEventListener('click', getRandomImage);
     right.removeEventListener('click', getRandomImage);
-
+    
   }
 }
 
 getRandomImage();
 
-
 /////////////////////////////////////////
+var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+  // The type of chart we want to create
+  type: 'bar',
 
-
-
-
-function doTheChartThing() {
-  var ctx = document.getElementById('doTheChartThing').getContest('2d');
-
-  var labels = []; // ["John", "Cat", "Zach", "Allie"]
-  var voteData = []; // [17, 13, 44, 16]
-  var colors = []; // ['#880088', '#880088', ... ]
-
-  for (var i = 0; i < allTheData.length; i++) {
-    allTheData[i].pct = Math.round((allTheData[i].clicks / allTheData[i].views) * 100);
-  }
-
-  allTheData.sort(function (a, b) {
-    return b.pct - a.pct;
-  });
-
-for (var i = 0; i < allTheData.length; i++) {
-  labels.push(allTheData[i].name);
-  data.push(allTheData[i].pct);
-  var randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-  colors.push(randomColor);
-}
-
-
-new Chart(ctx, {
-  type: 'horizontalBar',
+  // The data for our dataset
   data: {
-    labels: labels,
-    datasets: [
-      {
-        label: 'Popularity based on % of clicks',
-        data: voteData,
-        backgroundColor: colors
-      }
-    ]
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [{
+      label: 'My First dataset',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      data: [0, 10, 5, 2, 20, 30, 45]
+    }]
   },
-  options: {
-    responsive: false,
-    maintainAspectRatio: true,
-    scales: {
-      yAxes: [
-        {
-          ticks: {
-            beginAtZero: true
-          }
-        }
-      ]
-    }
-  }
+
+  // Configuration options go here
+  options: {}
 });
-doTheChartThing();
